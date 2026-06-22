@@ -1,0 +1,33 @@
+{
+  "name": "Python 3.13 & UV Minimal Environment",
+  // Base lightweight Linux distribution
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  
+  "features": {
+    // Installs explicitly Python 3.13
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.13"
+    },
+    // Installs the latest version of uv
+    "ghcr.io/devcontainers-contrib/features/uv:1": {}
+  },
+
+  // Automatically runs uv sync when the dev container finishes building
+  "postCreateCommand": "uv sync",
+
+  "customizations": {
+    "vscode": {
+      // Vital VS Code extensions for python development and tooling
+      "extensions": [
+        "ms-python.python",        // Core Python language support
+        "ms-python.vscode-pylance", // Rich type checking & intellisense
+        "charliermarsh.ruff"       // Blazing fast linting & formatting (built by Astral, makers of uv)
+      ],
+      "settings": {
+        // Configures VS Code to use the virtual environment created by uv sync
+        "python.defaultInterpreterPath": "${ someWorkspaceFolder }/.venv/bin/python",
+        "python.testing.pytestEnabled": true
+      }
+    }
+  }
+}
